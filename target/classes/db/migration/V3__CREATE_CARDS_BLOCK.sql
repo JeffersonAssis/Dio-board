@@ -1,0 +1,19 @@
+CREATE TABLE CARDS (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    coluna_id BIGINT NOT NULL,
+    board_id BIGINT NOT NULL,
+    CONSTRAINT fk_cards_coluna FOREIGN KEY (coluna_id) REFERENCES COLUNA_BOARD(id),
+    CONSTRAINT fk_cards_board FOREIGN KEY (board_id) REFERENCES BOARD(id)
+);
+
+CREATE TABLE BLOCKS(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    data_bloqueio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    motivo_bloqueio VARCHAR(255) NOT NULL,
+    data_desbloqueio TIMESTAMP NULL,
+    motivo_desbloqueio VARCHAR(255) NOT NULL,
+    card_id BIGINT NOT NULL,
+    CONSTRAINT cards__bloqueio_fk FOREIGN KEY (card_id) REFERENCES CARDS(id) ON DELETE CASCADE
+);
